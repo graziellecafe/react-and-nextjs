@@ -1,32 +1,68 @@
-import Cabecalho from "@/components/Cabecalho";
-import "../app/globals.css";
-import Conteudo from "@/components/Conteudo";
-import Rodape from "@/components/Rodape";
-import Menu from "@/components/Menu";
+import { useState } from "react"
+
+import Cabecalho from "@/components/Cabecalho"
+import Conteudo from "@/components/Conteudo"
+import Menu from "@/components/Menu"
+import Rodape from "@/components/Rodape"
+
+import "../app/globals.css"
 
 export default function Pagina() {
-  const ano = new Date().getFullYear();
+    const [number, setNumero] = useState(0)
 
-  return (
-    <div
-      className={`
-    flex flex-col h-screen bg-black text-white p-5 gap-5 text-xl`}>
-      <Cabecalho titulo="Minha Página" subtitulo="Estou no arquivo page" />
+    function incrementar() {
+        setNumero(number + 1)
+    }
 
-      <div
-        className={`
+    function decrementar() {
+        setNumero(number - 1)
+    }
+
+    const ano = new Date().getFullYear()
+
+    return (
+        <div
+            className={`
+    flex flex-col h-screen bg-black text-white p-5 gap-5 text-xl`}
+        >
+            <Cabecalho
+                titulo="Minha Página"
+                subtitulo="Estou no arquivo page"
+            />
+
+            <div
+                className={`
         flex flex-1 gap-5 
-        `}>
-        <Menu />
-        <Conteudo>
-          <button className="bg-blue-500 p-2 rounded-md">Teste</button>
-        </Conteudo>
-      </div>
+        `}
+            >
+                <Menu />
+                <Conteudo>
+                    <div className="flex flex-col justify-center items-center gap-5 w-full h-full">
+                        <h2> Contador </h2>
+                        <div className="text-7xl font-black">{number}</div>
+                        <div className="flex gap-4">
+                            <button
+                                onClick={decrementar}
+                                className="bg-blue-500 p-2 rounded-full"
+                            >
+                                {"-"}
+                            </button>
 
-      <Rodape
-        textoEsquerda="Feito com 💛 por Grazielle Café "
-        textoDireita={`Desenvolvido em ${ano}. `}
-      />
-    </div>
-  );
+                            <button
+                                onClick={incrementar}
+                                className="bg-blue-500 p-2 rounded-full"
+                            >
+                                {"+"}
+                            </button>
+                        </div>
+                    </div>
+                </Conteudo>
+            </div>
+
+            <Rodape
+                textoEsquerda="Feito com 💛 por Grazielle Café "
+                textoDireita={`Desenvolvido em ${ano}. `}
+            />
+        </div>
+    )
 }
